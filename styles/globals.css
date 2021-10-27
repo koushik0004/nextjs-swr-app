@@ -1,0 +1,21 @@
+body {
+  height: 100vh;
+  background-color: #212529;
+  color: #fff;
+  font-family: sans-serif;
+}
+p {
+  margin: 0;
+}
+h4 {
+  margin: 1rem 0;
+  text-align: center;
+}
+.card {
+  box-shadow: 5px 5px 8px #1e1d1e, -5px -5px 8px #484748;
+  cursor: pointer;
+  margin: 0 auto 1rem;
+}
+.btn {
+  margin-top: 1rem;
+}
