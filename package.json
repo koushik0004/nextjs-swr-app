@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3100",
     "build": "next build",
     "start": "next start",
     "json-server": "json-server db.json -d 2000 -p 3001 -w db.json"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "bootstrap": "^5.0.2",
     "json-server": "^0.16.3",
-    "next": "11.0.1",
+    "next": "^11.1.2",
     "react": "17.0.2",
     "react-dom": "17.0.2"
   },

@@ -14,6 +14,11 @@
       "id": 3,
       "content": "This is a post with id 3",
       "createdAt": 1625745022490
+    },
+    {
+      "content": "never mind",
+      "id": 426,
+      "createdAt": 1635397124796
     }
   ],
   "comments": [
@@ -26,8 +31,8 @@
     {
       "id": 3,
       "content": "This is a comment of post 1",
-      "postId": 1
-      ,"createdAt": 1625745022490
+      "postId": 1,
+      "createdAt": 1625745022490
     },
     {
       "id": 2,

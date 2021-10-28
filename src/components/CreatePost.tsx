@@ -1,10 +1,25 @@
-import { useState } from "react";
+import { useState, FC } from "react";
+import axios from 'axios';
+import {IPost} from '@libs/types';
 
-const CreatePost = () => {
+const CreatePost: FC<{
+  updatePosts: Function
+}> = ({updatePosts}) => {
   const [content, setContent] = useState("");
 
   const handleSubmit = async (e) => {
-    //! do some wired stuff
+    e.preventDefault();
+    const {data} = await axios({
+      method: 'POST',
+      url: "/posts",
+      data: {
+        content,
+        id: Math.floor(Math.random()*1000),
+        createdAt: Date.now()
+      }
+    });
+    updatePosts((posts: IPost[]) => [data, ...posts]);
+    setContent("");
   };
 
   return (
