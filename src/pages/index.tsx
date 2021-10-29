@@ -1,10 +1,10 @@
-import {useEffect, useState} from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 import useSWR from "swr";
 import CreatePost from "@components/CreatePost";
 import PostCard from "@components/PostCard";
-import Loader from '@components/Loader';
-import {IPost} from '@libs/types';
+import Loader from "@components/Loader";
+import { IPost } from "@libs/types";
 
 export default function Home() {
   // const [posts, setPosts] = useState<IPost[]>(null);
@@ -17,19 +17,19 @@ export default function Home() {
   //   getPosts();
   // }, []);
 
-  const {data: posts, error} = useSWR<IPost[]>('/posts?_sort=createdAt&_order=desc');
+  const { data: posts, error } = useSWR<IPost[]>(
+    "/posts?_sort=createdAt&_order=desc"
+  );
 
   return (
     <div>
       <h4>useSWR Hook ⛳ 🍜</h4>
-      {/* <CreatePost updatePosts={setPosts} /> */}
+      <CreatePost />
 
       <h4>Posts</h4>
       {error && <p className="text-center">Something went wrong</p>}
       {!posts && <Loader />}
-      {posts && posts.map((post, indx) => (
-        <PostCard key={indx} data={post} />
-      ))}
+      {posts && posts.map((post, indx) => <PostCard key={indx} data={post} />)}
     </div>
   );
 }

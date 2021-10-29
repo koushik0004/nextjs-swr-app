@@ -3,22 +3,20 @@
     {
       "id": 1,
       "content": "This is a post with id 1",
-      "createdAt": 1625745022480
+      "createdAt": 1625745022480,
+      "clientOnly": false
     },
     {
       "id": 2,
       "content": "This is a post with id 2",
-      "createdAt": 1625745022485
+      "createdAt": 1625745022485,
+      "clientOnly": false
     },
     {
       "id": 3,
       "content": "This is a post with id 3",
-      "createdAt": 1625745022490
-    },
-    {
-      "content": "never mind",
-      "id": 426,
-      "createdAt": 1635397124796
+      "createdAt": 1625745022490,
+      "clientOnly": false
     }
   ],
   "comments": [
@@ -26,31 +24,36 @@
       "id": 1,
       "content": "This is a comment of post 1",
       "postId": 1,
-      "createdAt": 1625745022480
+      "createdAt": 1625745022480,
+      "clientOnly": false
     },
     {
       "id": 3,
       "content": "This is a comment of post 1",
       "postId": 1,
-      "createdAt": 1625745022490
+      "createdAt": 1625745022490,
+      "clientOnly": false
     },
     {
       "id": 2,
       "content": "This is a comment of post 2",
       "postId": 2,
-      "createdAt": 1625745022495
+      "createdAt": 1625745022495,
+      "clientOnly": false
     },
     {
       "id": 5,
       "content": "This is a comment of post 2",
       "createdAt": 1625745022496,
-      "postId": 2
+      "postId": 2,
+      "clientOnly": false
     },
     {
       "id": 7,
       "content": "This is a comment of post 3",
       "postId": 3,
-      "createdAt": 1625745022499
+      "createdAt": 1625745022499,
+      "clientOnly": false
     }
   ]
 }

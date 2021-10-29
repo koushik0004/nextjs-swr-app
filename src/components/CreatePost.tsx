@@ -1,25 +1,40 @@
 import { useState, FC } from "react";
-import axios from 'axios';
-import {IPost} from '@libs/types';
+import axios from "axios";
+import { mutate } from "swr";
+import { IPost } from "@libs/types";
 
 const CreatePost: FC<{
-  updatePosts: Function
-}> = ({updatePosts}) => {
+  updatePosts?: Function;
+}> = ({ updatePosts }) => {
   const [content, setContent] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const {data} = await axios({
-      method: 'POST',
+    const FAKE_DATA = {
+      content,
+      id: Math.floor(Math.random() * 1000),
+      createdAt: Date.now(),
+      clientOnly: true,
+    };
+    mutate(
+      `/posts?_sort=createdAt&_order=desc`,
+      (posts: IPost[]) => [FAKE_DATA, ...posts],
+      false
+    );
+    setContent("");
+
+    await axios({
+      method: "POST",
       url: "/posts",
       data: {
         content,
-        id: Math.floor(Math.random()*1000),
-        createdAt: Date.now()
-      }
+        id: Math.floor(Math.random() * 1000),
+        createdAt: Date.now(),
+        clientOnly: false,
+      },
     });
-    updatePosts((posts: IPost[]) => [data, ...posts]);
-    setContent("");
+    mutate(`/posts?_sort=createdAt&_order=desc`);
+    // updatePosts((posts: IPost[]) => [data, ...posts]);
   };
 
   return (
