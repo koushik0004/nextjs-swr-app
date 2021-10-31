@@ -9,14 +9,14 @@ function MyApp({ Component, pageProps }) {
   return (
     <div className="p-3">
       <SWRConfig
-      value={{
-        fetcher: (url: string) => axios(url).then((res) => res.data),
-        dedupingInterval: 10000
-        // ,suspense: true
-      }}
+        value={{
+          fetcher: (url: string) => axios(url).then((res) => res.data),
+          dedupingInterval: 10000,
+          // revalidateIfStale: false,
+          // ,suspense: true
+        }}
       >
         <Component {...pageProps} />
-
       </SWRConfig>
     </div>
   );

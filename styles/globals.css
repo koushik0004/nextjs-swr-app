@@ -19,3 +19,6 @@ h4 {
 .btn {
   margin-top: 1rem;
 }
+.btn-center--horizontal {
+  margin: 0 auto;
+}
