@@ -10,9 +10,10 @@ const CreatePost: FC<{
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const id = Math.floor(Math.random() * 1000);
     const FAKE_DATA = {
       content,
-      id: Math.floor(Math.random() * 1000),
+      id,
       createdAt: Date.now(),
       clientOnly: true,
     };
@@ -27,9 +28,7 @@ const CreatePost: FC<{
       method: "POST",
       url: "/posts",
       data: {
-        content,
-        id: Math.floor(Math.random() * 1000),
-        createdAt: Date.now(),
+        ...FAKE_DATA,
         clientOnly: false,
       },
     });

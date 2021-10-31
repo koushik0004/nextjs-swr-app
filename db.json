@@ -17,6 +17,18 @@
       "content": "This is a post with id 3",
       "createdAt": 1625745022490,
       "clientOnly": false
+    },
+    {
+      "content": "update new post 4",
+      "id": 697,
+      "createdAt": 1635668464044,
+      "clientOnly": false
+    },
+    {
+      "content": "added new post 5",
+      "id": 941,
+      "createdAt": 1635668537217,
+      "clientOnly": false
     }
   ],
   "comments": [
@@ -53,6 +65,27 @@
       "content": "This is a comment of post 3",
       "postId": 3,
       "createdAt": 1625745022499,
+      "clientOnly": false
+    },
+    {
+      "content": "adding first comment - 1",
+      "postId": "697",
+      "id": 919,
+      "createdAt": 1635668492411,
+      "clientOnly": false
+    },
+    {
+      "content": "Adding 2nd comment",
+      "postId": "697",
+      "id": 423,
+      "createdAt": 1635668505037,
+      "clientOnly": false
+    },
+    {
+      "content": "adding 3rd comment",
+      "postId": "697",
+      "id": 504,
+      "createdAt": 1635668511844,
       "clientOnly": false
     }
   ]
