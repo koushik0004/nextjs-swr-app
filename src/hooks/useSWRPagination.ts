@@ -1,0 +1,35 @@
+import useSWRInfinite from "swr/infinite";
+
+export const useSWRPagination = (url: string) => {
+  const PAGE_SIZE = 3;
+  const getKey = (pageIndex: number, pervPageData: any) => {
+    if (pervPageData && pervPageData.length < 3) {
+      return null;
+    }
+    const queryStr = `?_order=desc&_sort=createdAt&_page=${
+      pageIndex + 1
+    }&_limit=${PAGE_SIZE}`;
+
+    return `${url}${queryStr}`;
+  };
+
+  const { data, error, isValidating, size, setSize, mutate } =
+    useSWRInfinite(getKey);
+  //   console.log({ paginatedPosts, isValidating, size });
+
+  const paginatedItems = data?.flat() ?? null;
+  const isReachedAtLast = data && data[data.length - 1]?.length < PAGE_SIZE;
+
+  const isLoading = paginatedItems && isValidating;
+
+  return {
+    paginatedItems,
+    error,
+    isValidating,
+    size,
+    setSize,
+    mutate,
+    isReachedAtLast,
+    isLoading,
+  };
+};
