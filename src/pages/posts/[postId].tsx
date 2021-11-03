@@ -7,6 +7,7 @@ import PostCard from "@components/PostCard";
 import Loader from '@components/Loader';
 import useSWR from "swr";
 import {IPost, IComment} from '@libs/types';
+import { useSWRPagination } from '@hooks/useSWRPagination';
 
 const index = () => {
   const {push, query} = useRouter();
@@ -29,7 +30,16 @@ const index = () => {
   //   }
   // }, [query?.postId]);
 
-  const {data: comments, error} = useSWR(query.postId && `/posts/${query.postId}/comments?_sort=createdAt&_order=desc`);
+  // const {data: paginatedComments, error: paginatedCommentsErr} = useSWR(query.postId && `/posts/${query.postId}/comments?_sort=createdAt&_order=desc`);
+  const {
+    paginatedItems: paginatedComments,
+    error: paginatedCommentsErr,
+    size,
+    setSize,
+    isReachedAtLast,
+    isLoading: isCommentsLoading,
+  } = useSWRPagination<IComment>(`/posts/${query.postId}/comments`);
+
   const {data: posts, error: postError} = useSWR<IPost[]>(query.postId && `/posts?_sort=createdAt&_order=desc`);
   const [post] = posts && posts.length ? posts.filter(item => item.id === Number(query.postId)) : [];
 
@@ -48,11 +58,22 @@ const index = () => {
       <CreateComment />
 
       <h4>Comments</h4>
-      {error && <p className="text-center">Something went wrong</p>}
-      {!comments && <Loader />}
-      {comments && comments.map((comment, indx) => (
+      {paginatedCommentsErr && <p className="text-center">Something went wrong</p>}
+      {!paginatedComments && <Loader />}
+      {paginatedComments && paginatedComments.map((comment, indx) => (
         <CommentCard key={indx} data={comment}/>
       ))}
+      {isCommentsLoading && <Loader />}
+      {!isReachedAtLast && (
+        <div className="mx-auto w-50">
+          <button
+            onClick={() => setSize(size + 1)}
+            className="btn btn-outline-warning mx-auto"
+          >
+            Load more
+          </button>
+        </div>
+      )}
     </div>
   );
 };

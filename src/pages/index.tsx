@@ -16,7 +16,7 @@ export default function Home() {
     setSize,
     isReachedAtLast,
     isLoading: isPostsLoading,
-  } = useSWRPagination("/posts");
+  } = useSWRPagination<IPost>("/posts");
 
   return (
     <div>

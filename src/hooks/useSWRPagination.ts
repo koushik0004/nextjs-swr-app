@@ -1,8 +1,8 @@
-import useSWRInfinite from "swr/infinite";
+import useSWRInfinite, { SWRInfiniteConfiguration } from "swr/infinite";
 
-export const useSWRPagination = (url: string) => {
+export const useSWRPagination = <T>(url: string, options?: SWRInfiniteConfiguration) => {
   const PAGE_SIZE = 3;
-  const getKey = (pageIndex: number, pervPageData: any) => {
+  const getKey = (pageIndex: number, pervPageData: T[]) => {
     if (pervPageData && pervPageData.length < 3) {
       return null;
     }
@@ -14,10 +14,10 @@ export const useSWRPagination = (url: string) => {
   };
 
   const { data, error, isValidating, size, setSize, mutate } =
-    useSWRInfinite(getKey);
+    useSWRInfinite(getKey, options);
   //   console.log({ paginatedPosts, isValidating, size });
 
-  const paginatedItems = data?.flat() ?? null;
+  const paginatedItems: T[] = data?.flat() ?? null;
   const isReachedAtLast = data && data[data.length - 1]?.length < PAGE_SIZE;
 
   const isLoading = paginatedItems && isValidating;

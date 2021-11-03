@@ -1,12 +1,19 @@
 import { useState, FC } from "react";
 import axios from "axios";
-import { mutate } from "swr";
+// import { mutate } from "swr";
 import { IPost } from "@libs/types";
+import { useSWRPagination } from "@hooks/useSWRPagination";
 
 const CreatePost: FC<{
   updatePosts?: Function;
 }> = ({ updatePosts }) => {
   const [content, setContent] = useState("");
+  const {
+    mutate: paginatedPostsMutate
+  } = useSWRPagination<IPost>("/posts",
+  {
+    revalidateOnMount: false,
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,11 +24,7 @@ const CreatePost: FC<{
       createdAt: Date.now(),
       clientOnly: true,
     };
-    mutate(
-      `/posts?_sort=createdAt&_order=desc`,
-      (posts: IPost[]) => [FAKE_DATA, ...posts],
-      false
-    );
+    paginatedPostsMutate((posts: IPost[][]) => [[FAKE_DATA], ...posts], false);
     setContent("");
 
     await axios({
@@ -32,7 +35,7 @@ const CreatePost: FC<{
         clientOnly: false,
       },
     });
-    mutate(`/posts?_sort=createdAt&_order=desc`);
+    paginatedPostsMutate();
     // updatePosts((posts: IPost[]) => [data, ...posts]);
   };
 
