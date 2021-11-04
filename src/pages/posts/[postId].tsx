@@ -40,8 +40,10 @@ const index = () => {
     isLoading: isCommentsLoading,
   } = useSWRPagination<IComment>(`/posts/${query.postId}/comments`);
 
-  const {data: posts, error: postError} = useSWR<IPost[]>(query.postId && `/posts?_sort=createdAt&_order=desc`);
-  const [post] = posts && posts.length ? posts.filter(item => item.id === Number(query.postId)) : [];
+  // const {data: posts, error: postError} = useSWR<IPost[]>(query.postId && `/posts?_sort=createdAt&_order=desc`);
+  // const [post] = posts && posts.length ? posts.filter(item => item.id === Number(query.postId)) : [];
+
+  const {data: singlePost, isValidating, error: postError} = useSWR<IPost>(query.postId && `/posts/${query.postId}`);
 
   return (
     <div>
@@ -52,9 +54,9 @@ const index = () => {
       </header>
 
       {postError && <p className="text-center">Something went wrong</p>}
-      {!post && <Loader />}
+      {isValidating && !singlePost && <Loader />}
 
-      {post && <PostCard data={post} />}
+      {!isValidating && singlePost && <PostCard data={singlePost} />}
       <CreateComment />
 
       <h4>Comments</h4>
