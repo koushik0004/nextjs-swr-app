@@ -1,7 +1,7 @@
 import useSWRInfinite, { SWRInfiniteConfiguration } from "swr/infinite";
 
 export const useSWRPagination = <T>(url: string, options?: SWRInfiniteConfiguration) => {
-  const PAGE_SIZE = 3;
+  const PAGE_SIZE = 7;
   const getKey = (pageIndex: number, pervPageData: T[]) => {
     if (pervPageData && pervPageData.length < 3) {
       return null;

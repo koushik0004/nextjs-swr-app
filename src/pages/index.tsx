@@ -3,6 +3,7 @@ import CreatePost from "@components/CreatePost";
 import PostCard from "@components/PostCard";
 import Loader from "@components/Loader";
 import { IPost } from "@libs/types";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Home() {
   // const { data: posts, error } = useSWR<IPost[]>(
@@ -25,7 +26,12 @@ export default function Home() {
 
       <h4>Posts</h4>
       {paginatedPostsErr && <p className="text-center">Something went wrong</p>}
-      {!paginatedPosts && <Loader />}
+      <InfiniteScroll next={() => setSize(size + 1)} hasMore={!isReachedAtLast} loader={<Loader />} dataLength={paginatedPosts?.length ?? 0}>
+      {paginatedPosts &&
+        paginatedPosts.map((post, indx) => <PostCard key={indx} data={post} />)}
+      </InfiniteScroll>
+
+      {/* {!paginatedPosts && <Loader />}
       {paginatedPosts &&
         paginatedPosts.map((post, indx) => <PostCard key={indx} data={post} />)}
       {isPostsLoading && <Loader />}
@@ -38,7 +44,7 @@ export default function Home() {
             Load more
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
