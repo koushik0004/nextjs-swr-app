@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { mutate } from "swr";
 import axios from "axios";
 import { IComment } from "@libs/types";
 import { useSWRPagination } from "@hooks/useSWRPagination";
@@ -10,12 +9,12 @@ const CreateComment = () => {
     query: { postId },
   } = useRouter();
   const [comment, setComment] = useState("");
-  const {
-    mutate: paginatedPostsMutate
-  } = useSWRPagination<IComment>(`/posts/${postId}/comments`,
-  {
-    revalidateOnMount: false,
-  });
+  const { mutate: paginatedCommentsMutate } = useSWRPagination<IComment>(
+    `/posts/${postId}/comments`,
+    {
+      revalidateOnMount: false,
+    }
+  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +25,7 @@ const CreateComment = () => {
       createdAt: Date.now(),
       clientOnly: true,
     };
-    paginatedPostsMutate(
+    paginatedCommentsMutate(
       (comments: IComment[][]) => [[FAKE_DATA], ...comments],
       false
     );
@@ -40,8 +39,7 @@ const CreateComment = () => {
         clientOnly: false,
       },
     });
-    // mutate(`/posts/${postId}/comments?_sort=createdAt&_order=desc`);
-    paginatedPostsMutate();
+    paginatedCommentsMutate();
   };
 
   console.log(postId);

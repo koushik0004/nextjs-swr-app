@@ -9,6 +9,7 @@ const CommentCard: FC<{
   const wrapperClassName = clientOnly ? "border border-white" : "";
   return (
     <div className={`${wrapperClassName} card w-50 bg-dark`}>
+      <p className="card-header">Comment Id : {id}</p>
       <p className="card-body" id={`commentId-${id}`}>
         {content}{" "}
       </p>
